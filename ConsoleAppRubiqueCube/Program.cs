@@ -6,8 +6,8 @@ class Program
     {
         Console.WriteLine("Rubik's cube");
         
-        
-        
+        Cube cube = new Cube();
+        cube.Display();
         
         Console.ReadLine();
     }
