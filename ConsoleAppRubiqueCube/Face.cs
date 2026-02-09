@@ -33,4 +33,17 @@
             }
         }
     }
+
+    public void RotateClockwise()
+    {
+        Tuile[,] newTuiles = new Tuile[3, 3];
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                newTuiles[j, 2 - i] = Tuiles[i, j];
+            }
+        }
+        Tuiles = newTuiles;
+    }
 }

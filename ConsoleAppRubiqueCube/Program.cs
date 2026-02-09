@@ -10,6 +10,14 @@
             Cube monCube = new Cube(4, 2);
             monCube.Display();
             
+            Console.SetCursorPosition(0, 20);
+            Console.WriteLine("Appuie sur Entrée pour faire tourner la face avant...");
+            Console.ReadLine();
+            monCube.F(); 
+            Console.Clear();
+            Console.WriteLine("Cube après rotation de la face avant :");
+            monCube.Display();
+            
             Console.SetCursorPosition(0, 25);
             Console.WriteLine("Appuie sur Entrée pour tester une autre taille...");
             Console.ReadLine();

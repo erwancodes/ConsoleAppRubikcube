@@ -23,11 +23,12 @@ public class Cube
         Front = new Face("Rouge", largeurTuile, hauteurTuile);
         back = new Face("Orange", largeurTuile, hauteurTuile);
     }
+    
     public void Display()
     {
         int fW = 3 * LargeurTuile; 
         int fH = 3 * HauteurTuile; 
-        int gap = 1;
+        int gap = 0; 
         
         int startX = 1;
         int startY = 1;
@@ -42,26 +43,122 @@ public class Cube
 
     public void F()
     {
+        Front.RotateClockwise(); 
         Tuile[] tempAdj = new Tuile[3];
-        tempAdj[0] = Top.Tuiles[2, 0];
-        tempAdj[1] = Top.Tuiles[2, 1];
-        tempAdj[2] = Top.Tuiles[2, 2];
-        
-        Top.Tuiles[2, 0] = Left.Tuiles[0, 2];
-        Top.Tuiles[2, 1] = Left.Tuiles[1, 2];
-        Top.Tuiles[2, 2] = Left.Tuiles[2, 2];
-        
-        Left.Tuiles[0, 2] = Bottom.Tuiles[0, 0];
-        Left.Tuiles[1, 2] = Bottom.Tuiles[0, 1];
-        Left.Tuiles[2, 2] = Bottom.Tuiles[0, 2];
-        
-        Bottom.Tuiles[0, 0] = Right.Tuiles[2, 0]; 
-        Bottom.Tuiles[0, 1] = Right.Tuiles[1, 0];
-        Bottom.Tuiles[0, 2] = Right.Tuiles[0, 0]; 
-        
-        Right.Tuiles[0, 0] = tempAdj[0];
-        Right.Tuiles[1, 0] = tempAdj[1];
-        Right.Tuiles[2, 0] = tempAdj[2];
+        for (int i = 0; i < 3; i++)
+            tempAdj[i] = Top.Tuiles[2, i];
+
+        for (int i = 0; i < 3; i++)
+            Top.Tuiles[2, i] = Left.Tuiles[2 - i, 2];
+
+        for (int i = 0; i < 3; i++)
+            Left.Tuiles[i, 2] = Bottom.Tuiles[0, i];
+
+        for (int i = 0; i < 3; i++)
+            Bottom.Tuiles[0, i] = Right.Tuiles[2 - i, 0];
+
+        for (int i = 0; i < 3; i++)
+            Right.Tuiles[i, 0] = tempAdj[i];
+    }
+
+    public void B()
+    {
+        back.RotateClockwise(); 
+        Tuile[] tempAdj = new Tuile[3];
+        for (int i = 0; i < 3; i++)
+            tempAdj[i] = Top.Tuiles[0, i];
+
+        for (int i = 0; i < 3; i++)
+            Top.Tuiles[0, i] = Right.Tuiles[i, 2];
+
+        for (int i = 0; i < 3; i++)
+            Right.Tuiles[i, 2] = Bottom.Tuiles[2, 2 - i];
+
+        for (int i = 0; i < 3; i++)
+            Bottom.Tuiles[2, i] = Left.Tuiles[i, 0];
+
+        for (int i = 0; i < 3; i++)
+            Left.Tuiles[i, 0] = tempAdj[2 - i];
+    }
+
+    public void R()
+    {
+        Right.RotateClockwise(); 
+        Tuile[] tempAdj = new Tuile[3];
+        for (int i = 0; i < 3; i++)
+            tempAdj[i] = Top.Tuiles[i, 2];
+
+        for (int i = 0; i < 3; i++)
+            Top.Tuiles[i, 2] = Front.Tuiles[i, 2];
+
+        for (int i = 0; i < 3; i++)
+            Front.Tuiles[i, 2] = Bottom.Tuiles[i, 2];
+
+        for (int i = 0; i < 3; i++)
+            Bottom.Tuiles[i, 2] = back.Tuiles[2 - i, 0];
+
+        for (int i = 0; i < 3; i++)
+            back.Tuiles[i, 0] = tempAdj[2 - i];
+    }
+
+    public void L()
+    {
+        Left.RotateClockwise(); 
+        Tuile[] tempAdj = new Tuile[3];
+        for (int i = 0; i < 3; i++)
+            tempAdj[i] = Top.Tuiles[i, 0];
+
+        for (int i = 0; i < 3; i++)
+            Top.Tuiles[i, 0] = back.Tuiles[2 - i, 2];
+
+        for (int i = 0; i < 3; i++)
+            back.Tuiles[i, 2] = Bottom.Tuiles[i, 0];
+
+        for (int i = 0; i < 3; i++)
+            Bottom.Tuiles[i, 0] = Front.Tuiles[i, 0];
+
+        for (int i = 0; i < 3; i++)
+            Front.Tuiles[i, 0] = tempAdj[i];
+    }
+
+    public void U()
+    {
+        Top.RotateClockwise(); 
+        Tuile[] tempAdj = new Tuile[3];
+        for (int i = 0; i < 3; i++)
+            tempAdj[i] = Front.Tuiles[0, i];
+
+        for (int i = 0; i < 3; i++)
+            Front.Tuiles[0, i] = Right.Tuiles[0, i];
+
+        for (int i = 0; i < 3; i++)
+            Right.Tuiles[0, i] = back.Tuiles[0, i];
+
+        for (int i = 0; i < 3; i++)
+            back.Tuiles[0, i] = Left.Tuiles[0, i];
+
+        for (int i = 0; i < 3; i++)
+            Left.Tuiles[0, i] = tempAdj[i];
+    }
+
+    public void D()
+    {
+        Bottom.RotateClockwise(); 
+        Tuile[] tempAdj = new Tuile[3];
+        for (int i = 0; i < 3; i++)
+            tempAdj[i] = Front.Tuiles[2, i];
+
+        for (int i = 0; i < 3; i++)
+            Front.Tuiles[2, i] = Left.Tuiles[2, i];
+
+        for (int i = 0; i < 3; i++)
+            Left.Tuiles[2, i] = back.Tuiles[2, i];
+
+        for (int i = 0; i < 3; i++)
+            back.Tuiles[2, i] = Right.Tuiles[2, i];
+
+        for (int i = 0; i < 3; i++)
+            Right.Tuiles[2, i] = tempAdj[i];
     }
     
 }

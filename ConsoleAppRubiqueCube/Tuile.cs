@@ -17,12 +17,12 @@
     {
         switch (codeCouleur.ToUpper())
         {
-            case "R": return ConsoleColor.Red;
-            case "G": return ConsoleColor.Green;
-            case "B": return ConsoleColor.Blue;
-            case "Y": return ConsoleColor.Yellow;
-            case "W": return ConsoleColor.White;
-            case "O": return ConsoleColor.DarkYellow;
+            case "R": case "ROUGE": return ConsoleColor.Red;
+            case "G": case "VERT": return ConsoleColor.Green;
+            case "B": case "BLEU": return ConsoleColor.Blue;
+            case "Y": case "JAUNE": return ConsoleColor.Yellow;
+            case "W": case "BLANC": return ConsoleColor.White;
+            case "O": case "ORANGE": return ConsoleColor.DarkYellow;
             default: return ConsoleColor.Gray;
         }
     }
