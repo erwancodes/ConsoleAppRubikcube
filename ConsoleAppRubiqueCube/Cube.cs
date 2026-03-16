@@ -26,19 +26,26 @@ public class Cube
     
     public void Display()
     {
+        Display(1, 5);
+    }
+
+    public void Display(int startX, int startY)
+    {
         int fW = 3 * LargeurTuile; 
         int fH = 3 * HauteurTuile; 
         int gap = 0; 
-        
-        int startX = 1;
-        int startY = 1;
-        
+
         Top.Display(startX + fW + gap, startY);
         Left.Display(startX, startY + fH + gap);
         Front.Display(startX + fW + gap, startY + fH + gap);
         Right.Display(startX + 2 * (fW + gap), startY + fH + gap);
         back.Display(startX + 3 * (fW + gap), startY + fH + gap);
         Bottom.Display(startX + fW + gap, startY + 2 * (fH + gap));
+    }
+
+    public int GetDisplayBottom(int startY)
+    {
+        return startY + (3 * 3 * HauteurTuile);
     }
 
     public void F()
@@ -112,7 +119,7 @@ public class Cube
             Top.Tuiles[i, 0] = back.Tuiles[2 - i, 2];
 
         for (int i = 0; i < 3; i++)
-            back.Tuiles[i, 2] = Bottom.Tuiles[i, 0];
+            back.Tuiles[i, 2] = Bottom.Tuiles[2 - i, 0];
 
         for (int i = 0; i < 3; i++)
             Bottom.Tuiles[i, 0] = Front.Tuiles[i, 0];
@@ -153,12 +160,41 @@ public class Cube
 
         for (int i = 0; i < 3; i++)
             Left.Tuiles[2, i] = back.Tuiles[2, i];
+        
+        
 
         for (int i = 0; i < 3; i++)
             back.Tuiles[2, i] = Right.Tuiles[2, i];
 
         for (int i = 0; i < 3; i++)
             Right.Tuiles[2, i] = tempAdj[i];
+    }
+
+    public bool ApplyMove(char move)
+    {
+        switch (char.ToUpperInvariant(move))
+        {
+            case 'F':
+                F();
+                return true;
+            case 'B':
+                B();
+                return true;
+            case 'R':
+                R();
+                return true;
+            case 'L':
+                L();
+                return true;
+            case 'U':
+                U();
+                return true;
+            case 'D':
+                D();
+                return true;
+            default:
+                return false;
+        }
     }
     
 }
