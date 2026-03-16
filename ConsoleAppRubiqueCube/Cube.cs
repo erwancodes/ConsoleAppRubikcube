@@ -42,7 +42,7 @@ public class Cube
         back.Display(startX + 3 * (fW + gap), startY + fH + gap);
         Bottom.Display(startX + fW + gap, startY + 2 * (fH + gap));
     }
-
+    
     public int GetDisplayBottom(int startY)
     {
         return startY + (3 * 3 * HauteurTuile);
@@ -172,6 +172,78 @@ public class Cube
 
     public bool ApplyMove(char move)
     {
+        return ApplyMove(move, 1);
+    }
+
+    public bool ApplyMove(char move, int turns)
+    {
+        int normalizedTurns = ((turns % 4) + 4) % 4;
+
+        for (int i = 0; i < normalizedTurns; i++)
+        {
+            if (!ApplySingleMove(move))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public bool ApplyToken(string token)
+    {
+        if (string.IsNullOrWhiteSpace(token))
+        {
+            return false;
+        }
+
+        string trimmedToken = token.Trim();
+        char move = char.ToUpperInvariant(trimmedToken[0]);
+        int turns = 1;
+
+        if (trimmedToken.Length > 1)
+        {
+            string suffix = trimmedToken[1..];
+
+            if (suffix == "2")
+            {
+                turns = 2;
+            }
+            else if (suffix == "'")
+            {
+                turns = 3;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        return ApplyMove(move, turns);
+    }
+
+    public bool ApplyAlgorithm(string algorithm)
+    {
+        if (string.IsNullOrWhiteSpace(algorithm))
+        {
+            return false;
+        }
+
+        string[] tokens = algorithm.Split([' ', '\t'], StringSplitOptions.RemoveEmptyEntries);
+
+        foreach (string token in tokens)
+        {
+            if (!ApplyToken(token))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private bool ApplySingleMove(char move)
+    {
         switch (char.ToUpperInvariant(move))
         {
             case 'F':
@@ -196,5 +268,4 @@ public class Cube
                 return false;
         }
     }
-    
 }
